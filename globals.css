@@ -1,0 +1,470 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────────────────
+   Design theme: Warm / artisan, stretched into a playful party-game palette.
+   Keep the original earthy variables and extend them with candy accents.
+   ──────────────────────────────────────────────────────────────────────── */
+:root {
+  --bg: #f4ede1;
+  --fg: #3a2c1d;
+  --primary: #b15a32;
+  --primary-fg: #f4ede1;
+  --accent: #6f7340;
+  --muted: #ebe1d1;
+  --muted-fg: #7a6a54;
+  --border: #ddcfb9;
+  --card: #fbf6ec;
+  --radius: 18px;
+  --font-display: 'Lora', Georgia, serif;
+  --font-body: 'Epilogue', system-ui, -apple-system, sans-serif;
+
+  /* party-game extension */
+  --cream: #fffaf0;
+  --ink: #2c2117;
+  --lime: #7ba05b;
+  --candy: #e26d5f;
+  --sky: #c5e3ec;
+  --sunshine: #f4c430;
+
+  /* dark mode */
+  --dark-bg: #12141a;
+  --dark-card: #1c1f28;
+  --dark-surface: #232734;
+  --dark-border: #363b4a;
+  --dark-ink: #f3eee6;
+}
+
+html.dark {
+  --bg: #12141a;
+  --fg: #f3eee6;
+  --primary: #e98468;
+  --primary-fg: #1c1f28;
+  --muted: #232734;
+  --muted-fg: #a8a096;
+  --border: #363b4a;
+  --card: #1c1f28;
+  --cream: #1c1f28;
+  --ink: #f3eee6;
+  --sky: #2a4d5c;
+  --lime: #8cb36a;
+  --candy: #f07a6b;
+  --sunshine: #f4c430;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.05); }
+}
+
+@keyframes confetti-drift {
+  0% { transform: translateY(-10%) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+.animate-popIn {
+  animation: popIn 0.3s ease-out forwards;
+}
+
+.animate-bounce-soft {
+  animation: bounce-soft 1.6s ease-in-out infinite;
+}
+
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Game shell backgrounds */
+.sketch-game-bg {
+  background:
+    radial-gradient(circle at 10% 20%, rgba(199, 162, 61, 0.2), transparent 22%),
+    radial-gradient(circle at 90% 80%, rgba(106, 179, 255, 0.18), transparent 24%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.25) 0px, rgba(255,255,255,0.25) 2px, transparent 2px, transparent 18px),
+    var(--bg);
+  transition: background 0.4s ease;
+}
+
+html.dark .sketch-game-bg {
+  background:
+    radial-gradient(circle at 10% 20%, rgba(90, 143, 123, 0.15), transparent 22%),
+    radial-gradient(circle at 90% 80%, rgba(61, 90, 128, 0.15), transparent 24%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 2px, transparent 2px, transparent 18px),
+    var(--bg);
+}
+
+.confetti::before,
+.confetti::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, var(--candy) 20%, transparent 21%),
+    radial-gradient(circle, var(--lime) 20%, transparent 21%),
+    radial-gradient(circle, var(--sunshine) 20%, transparent 21%),
+    radial-gradient(circle, var(--sky) 20%, transparent 21%);
+  background-size: 64px 64px, 80px 80px, 56px 56px, 96px 96px;
+  background-position: 0 0, 24px 12px, 48px 32px, 12px 52px;
+  opacity: 0.22;
+  animation: confetti-drift 28s linear infinite;
+}
+
+.confetti::after {
+  animation-duration: 36s;
+  animation-direction: reverse;
+  opacity: 0.12;
+}
+
+/* Big game cards */
+.game-card {
+  background: var(--cream);
+  border-radius: var(--radius);
+  border: 3px solid var(--ink);
+  box-shadow:
+    0 8px 0 var(--ink),
+    0 18px 32px rgba(44,33,23,0.18);
+  animation: popIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.game-panel {
+  background: rgba(255, 250, 240, 0.92);
+  border-radius: var(--radius);
+  border: 3px solid var(--ink);
+  box-shadow: 0 5px 0 var(--ink);
+  animation: fadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+html.dark .game-panel {
+  background: rgba(35, 39, 52, 0.92);
+}
+
+.game-header {
+  background: linear-gradient(135deg, var(--candy), #c94b3e);
+  border-radius: var(--radius);
+  border: 3px solid var(--ink);
+  box-shadow: 0 6px 0 var(--ink);
+  padding: 0.75rem 1rem;
+}
+
+/* Typography */
+.title-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.95;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  text-shadow: 0 4px 0 rgba(0,0,0,0.12);
+}
+
+.title-small {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+}
+
+.title-tiny {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Inputs / labels */
+.label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  opacity: 0.65;
+  margin-bottom: 0.35rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  border: 3px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: 0 4px 0 var(--ink);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.input:focus {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+.input::placeholder {
+  color: var(--ink);
+  opacity: 0.35;
+}
+
+/* Big game buttons */
+.big-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+  border: 3px solid var(--ink);
+  font-weight: 900;
+  font-size: 1.05rem;
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 5px 0 var(--ink);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+  user-select: none;
+}
+
+.big-btn:hover:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 3px 0 var(--ink);
+}
+
+.big-btn:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.big-btn.primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.big-btn.lime {
+  background: var(--lime);
+  color: #fff;
+}
+
+.big-btn:disabled {
+  cursor: not-allowed;
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+/* Player chips */
+.player-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--ink);
+}
+
+/* Word choice buttons */
+.word-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  font-weight: 900;
+  font-size: 1.1rem;
+  padding: 0.9rem 1.4rem;
+  border-radius: 16px;
+  border: 3px solid var(--ink);
+  color: var(--ink);
+  background: #fff;
+  box-shadow: 0 5px 0 var(--ink);
+  text-transform: capitalize;
+  transition: transform 0.08s, box-shadow 0.08s;
+  cursor: pointer;
+}
+
+.word-btn:hover {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+.word-btn.diff-easy {
+  background: var(--lime);
+  color: #fff;
+}
+
+.word-btn.diff-medium {
+  background: var(--sunshine);
+  color: #2c2117;
+}
+
+.word-btn.diff-hard {
+  background: var(--candy);
+  color: #fff;
+}
+
+.diff-pill {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 900;
+  padding: 0.15rem 0.45rem;
+  background: rgba(255,255,255,0.35);
+  border-radius: 999px;
+}
+
+/* Timer bubble */
+.timer-bubble {
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 3px solid var(--ink);
+  background: #fff;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.4rem;
+  color: var(--ink);
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.timer-bubble.urgent {
+  background: var(--candy);
+  color: #fff;
+  animation: bounce-soft 0.8s ease-in-out infinite;
+}
+
+/* Leader row */
+.leader-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.65rem;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+.leader-rank {
+  width: 1.6rem;
+  text-align: center;
+  font-weight: 900;
+  color: var(--ink);
+  opacity: 0.55;
+}
+
+/* Chat bubbles */
+.chat-bubble {
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  border-top-left-radius: 4px;
+  padding: 0.45rem 0.75rem;
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+.chat-bubble.correct {
+  background: var(--lime);
+  color: #fff;
+}
+
+/* Confetti overlay */
+.big-confetti {
+  font-family: var(--font-display);
+  text-shadow: 0 4px 0 rgba(0,0,0,0.2);
+}
+
+/* Eraser button */
+.eraser-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 3px solid var(--ink);
+  background: var(--cream);
+  color: var(--ink);
+  box-shadow: 0 3px 0 var(--ink);
+  font-weight: 900;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.eraser-btn:hover {
+  transform: translateY(1px);
+  box-shadow: 0 2px 0 var(--ink);
+}
+
+.eraser-btn.active {
+  background: var(--candy);
+  color: #fff;
+}
+
+/* Smooth theme transitions */
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 180ms;
+  transition-timing-function: ease;
+}
+
+/* Scrollbar polish */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(44,33,23,0.25);
+  border-radius: 999px;
+}
+
+html.dark::-webkit-scrollbar-thumb {
+  background: rgba(243, 238, 230, 0.25);
+}
